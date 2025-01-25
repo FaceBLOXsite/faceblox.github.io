@@ -27,7 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->execute();
         echo "Registration successful! <a href='login.html'>Login here</a>";
     } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
+        if ($e->getCode() == 23000) {
+            echo "This email is already registered. Please use a different email.";
+        } else {
+            echo "Error: " . $e->getMessage();
+        }
     }
 }
 ?>
