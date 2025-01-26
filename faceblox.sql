@@ -1,8 +1,10 @@
-CREATE DATABASE faceblox;
+-- SQL schema for FaceBLOX users table
+
+CREATE DATABASE IF NOT EXISTS faceblox;
 
 USE faceblox;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
