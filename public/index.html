@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faceblox</title>
+  <link rel="icon" href="logo.png">
+  <style>
+    /* Same styles as before */
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Faceblox</h1>
+    <nav id="nav" class="hidden">
+      <a href="#" onclick="showPage('home')">Home</a>
+      <a href="#" onclick="showPage('profile')">Profile</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+  </header>
+
+  <div id="loginPage" class="container">
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button class="button" onclick="login()">Login</button>
+    <p>Don’t have an account? <a href="#" onclick="showSignup()">Sign Up</a></p>
+  </div>
+
+  <div id="signupPage" class="container hidden">
+    <h2>Sign Up</h2>
+    <input type="text" id="signupUsername" placeholder="Username">
+    <input type="password" id="signupPassword" placeholder="Password">
+    <button class="button" onclick="signup()">Sign Up</button>
+    <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+  </div>
+
+  <div id="homePage" class="container hidden">
+    <h2>Welcome to Faceblox!</h2>
+    <p>Connect with other Roblox players, share updates, and join communities!</p>
+  </div>
+
+  <footer>
+    <p>© 2025 Faceblox. Built for Roblox players.</p>
+  </footer>
+
+  <script>
+    const API_URL = 'http://localhost:3000';
+
+    function showPage(page) {
+      document.querySelectorAll('.container').forEach(container => container.classList.add('hidden'));
+      document.getElementById(page + 'Page').classList.remove('hidden');
+    }
+
+    function showLogin() {
+      showPage('login');
+    }
+
+    function showSignup() {
+      showPage('signup');
+    }
+
+    async function signup() {
+      const username = document.getElementById('signupUsername').value;
+      const password = document.getElementById('signupPassword').value;
+
+      try {
+        const response = await fetch(`${API_URL}/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        if (response.ok) {
+          alert('Account created successfully!');
+          showLogin();
+        } else {
+          const error = await response.json();
+          alert(error.message);
+        }
+      } catch (error) {
+        alert('Error signing up.');
+      }
+    }
+
+    async function login() {
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        const response = await fetch(`${API_URL}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          document.getElementById('nav').classList.remove('hidden');
+          showPage('home');
+          alert(data.message);
+        } else {
+          const error = await response.json();
+          alert(error.message);
+        }
+      } catch (error) {
+        alert('Error logging in.');
+      }
+    }
+
+    function logout() {
+      document.getElementById('nav').classList.add('hidden');
+      showLogin();
+    }
+
+    // Initial Setup
+    showLogin();
+  </script>
+</body>
+</html>
