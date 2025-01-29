@@ -10,6 +10,8 @@
   </style>
 </head>
 <body>
+  <audio id="backgroundMusic" src="theme.mp3" autoplay loop></audio>
+  
   <header>
     <h1>Faceblox</h1>
     <nav id="nav" class="hidden">
@@ -112,6 +114,14 @@
       document.getElementById('nav').classList.add('hidden');
       showLogin();
     }
+
+    // Ensure music plays on user interaction
+    document.addEventListener('click', () => {
+      const music = document.getElementById('backgroundMusic');
+      if (music.paused) {
+        music.play();
+      }
+    });
 
     // Initial Setup
     showLogin();
