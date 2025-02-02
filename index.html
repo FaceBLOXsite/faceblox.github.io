@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceBlox</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+<body>
+    <audio id="bg-music" loop autoplay>
+        <source src="theme.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
+    <button id="music-toggle">Pause Music</button>
+
+    <div class="container">
+        <header>
+            <img src="logo.png" alt="FaceBlox Logo" class="logo">
+            <h1>FaceBlox</h1>
+        </header>
+
+        <main>
+            <div class="login-box">
+                <h2>Login</h2>
+                <input type="text" placeholder="Username">
+                <input type="password" placeholder="Password">
+                <button>Login</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const music = document.getElementById("bg-music");
+        const toggleButton = document.getElementById("music-toggle");
+
+        toggleButton.addEventListener("click", () => {
+            if (music.paused) {
+                music.play();
+                toggleButton.textContent = "Pause Music";
+            } else {
+                music.pause();
+                toggleButton.textContent = "Play Music";
+            }
+        });
+    </script>
+</body>
+</html>
