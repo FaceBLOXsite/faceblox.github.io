@@ -81,19 +81,3 @@ button {
 .signup-btn:hover {
     background: #218838;
 }
-
-#music-toggle {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: black;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#music-toggle:hover {
-    background: gray;
-}
