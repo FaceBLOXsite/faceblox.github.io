@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FaceBlox</title>
+    <title>FaceBlox - Coming Soon</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="logo.png">
 </head>
@@ -14,23 +14,11 @@
         Your browser does not support the audio element.
     </audio>
 
-    <button id="music-toggle">Pause Music</button>
+    <button id="music-toggle">Mute Music</button>
 
     <div class="container">
-        <header>
-            <img src="logo.png" alt="FaceBlox Logo" class="logo">
-            <h1>FaceBlox</h1>
-        </header>
-
-        <main>
-            <div class="login-box">
-                <h2>Login</h2>
-                <input type="text" placeholder="Username">
-                <input type="password" placeholder="Password">
-                <button class="login-btn">Login</button>
-                <button class="signup-btn">Sign Up</button>
-            </div>
-        </main>
+        <img src="logo.png" alt="FaceBlox Logo" class="logo">
+        <h1 class="coming-soon">Pardon our dust! We're working hard to bring you this site.</h1>
     </div>
 
     <script>
@@ -40,12 +28,13 @@
         toggleButton.addEventListener("click", () => {
             if (music.paused) {
                 music.play();
-                toggleButton.textContent = "Pause Music";
+                toggleButton.textContent = "Mute Music";
             } else {
                 music.pause();
                 toggleButton.textContent = "Play Music";
             }
         });
     </script>
+
 </body>
 </html>
