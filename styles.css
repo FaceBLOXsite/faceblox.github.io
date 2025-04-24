@@ -112,7 +112,7 @@
 
 .buy-button:hover {
   background-color: #218838;
-  transform: scale(1.05);
+  transform: scale(1.0);
 }
 
 .contact-info {
