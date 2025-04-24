@@ -1,7 +1,5 @@
-// FaceBlox Homepage with Product Slots
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -11,21 +9,30 @@ export default function FaceBlox() {
     {
       name: "fitto",
       price: 149.99,
-      image: "/fitto.webp",
-      description: "Rare 2009 unverified Roblox account. Username: 'fitto'. Secure it today!",
-      paypalLink: "https://www.paypal.me/tonyjeremiasjaatinen/149.99"
+      image: "/fitto.png",
+      description: "Rare 2008 unverified Roblox account. Username: 'fitto'. Secure it today!",
+      paypalLink: "https://www.paypal.me/tonyjeremiasjaatinen/149.99",
+      email: "tonyjeremiasjaatinen@gmail.com", // Email for proof with image of purchase
     },
     // Empty slots for manual entry
     {}, {}, {}, {}, {},
   ];
 
+  const handleEmailContact = (product) => {
+    const subject = `Proof of Purchase for ${product.name}`;
+    const body = `Hello,\n\nI have purchased the account '${product.name}' for ${product.price}. Here is the proof of purchase.\n\nBest regards,`;
+    window.location.href = `mailto:${product.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
   return (
-    <div className="bg-black text-white min-h-screen px-6 py-10">
+    <div className="bg-gradient-to-b from-black to-gray-900 text-white min-h-screen px-6 py-10">
       <header className="flex items-center justify-between mb-10">
-        <h1 className="text-3xl font-bold">FaceBlox</h1>
+        <h1 className="text-4xl font-extrabold text-gradient bg-clip-text text-transparent">
+          FaceBlox
+        </h1>
         <div className="flex gap-4">
-          <a href="https://discord.gg/faceblox" target="_blank">
-            <img src="/images/discord-logo.webp" alt="Discord" className="w-8 h-8" />
+          <a href="https://discord.gg/faceblox" target="_blank" className="transition-transform transform hover:scale-105">
+            <img src="/images/discord-logo.webp" alt="Discord" className="w-10 h-10 rounded-full border-2 border-white" />
           </a>
         </div>
       </header>
@@ -39,10 +46,10 @@ export default function FaceBlox() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Card className="bg-zinc-900 text-white rounded-2xl shadow-lg">
+              <Card className="bg-zinc-900 text-white rounded-2xl shadow-xl hover:scale-105 transition-transform">
                 <CardContent className="p-4">
-                  <img src={product.image} alt={product.name} className="rounded-xl mb-4 w-full h-60 object-cover" />
-                  <h2 className="text-xl font-semibold mb-1">{product.name}</h2>
+                  <img src={product.image} alt={product.name} className="rounded-xl mb-4 w-full h-60 object-cover shadow-md transform transition-transform hover:scale-105" />
+                  <h2 className="text-2xl font-semibold mb-1">{product.name}</h2>
                   <p className="text-sm text-gray-400 mb-2">{product.description}</p>
                   <div className="flex items-center gap-1 mb-3">
                     {[...Array(5)].map((_, i) => (
@@ -55,16 +62,19 @@ export default function FaceBlox() {
                     href={product.paypalLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full text-center bg-green-500 hover:bg-green-600 text-white py-2 rounded-md"
+                    className="block w-full text-center bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition-all transform hover:scale-105"
                   >
                     Buy Now with PayPal
                   </a>
+                  <div className="mt-4 text-center text-gray-400 text-sm">
+                    <p>After purchase, please contact us at <strong>{product.email}</strong> with proof of your purchase.</p>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
           ) : (
             <div key={index} className="h-96 border-2 border-dashed border-gray-700 rounded-2xl flex items-center justify-center text-gray-600 text-sm">
-              Empty Slot
+              <p className="text-lg text-gray-500">Empty Slot</p>
             </div>
           )
         )}
