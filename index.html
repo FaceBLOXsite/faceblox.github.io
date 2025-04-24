@@ -1,0 +1,78 @@
+// FaceBlox Homepage with Product Slots
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Star } from "lucide-react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+
+export default function FaceBlox() {
+  const products = [
+    {
+      name: "fitto",
+      price: 149.99,
+      image: "/images/fitto.webp",
+      description: "Rare 2009 unverified Roblox account. Username: 'fitto'. Secure it today!",
+      paypalLink: "https://www.paypal.me/yourusername/149.99"
+    },
+    // Empty slots for manual entry
+    {}, {}, {}, {}, {},
+  ];
+
+  return (
+    <div className="bg-black text-white min-h-screen px-6 py-10">
+      <header className="flex items-center justify-between mb-10">
+        <h1 className="text-3xl font-bold">FaceBlox</h1>
+        <div className="flex gap-4">
+          <a href="https://discord.gg/faceblox" target="_blank">
+            <img src="/images/discord-logo.webp" alt="Discord" className="w-8 h-8" />
+          </a>
+        </div>
+      </header>
+
+      <main className="grid md:grid-cols-3 gap-8">
+        {products.map((product, index) =>
+          product.name ? (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Card className="bg-zinc-900 text-white rounded-2xl shadow-lg">
+                <CardContent className="p-4">
+                  <img src={product.image} alt={product.name} className="rounded-xl mb-4 w-full h-60 object-cover" />
+                  <h2 className="text-xl font-semibold mb-1">{product.name}</h2>
+                  <p className="text-sm text-gray-400 mb-2">{product.description}</p>
+                  <div className="flex items-center gap-1 mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={16} fill="gold" className="text-yellow-500" />
+                    ))}
+                    <span className="text-xs text-gray-400">4.9/5</span>
+                  </div>
+                  <div className="text-lg font-bold mb-3">${product.price}</div>
+                  <a
+                    href={product.paypalLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full text-center bg-green-500 hover:bg-green-600 text-white py-2 rounded-md"
+                  >
+                    Buy Now with PayPal
+                  </a>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ) : (
+            <div key={index} className="h-96 border-2 border-dashed border-gray-700 rounded-2xl flex items-center justify-center text-gray-600 text-sm">
+              Empty Slot
+            </div>
+          )
+        )}
+      </main>
+
+      <footer className="mt-20 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 FaceBlox. Not affiliated with Roblox Corporation.</p>
+      </footer>
+    </div>
+  );
+}
