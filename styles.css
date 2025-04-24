@@ -39,6 +39,9 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden; /* Ensure no content goes outside the card */
+  display: flex;
+  flex-direction: column; /* Ensure content is stacked vertically */
+  height: 100%; /* Ensure the card takes up full height */
 }
 
 .product-card:hover {
@@ -48,9 +51,7 @@
 
 .card-content {
   padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%; /* Ensure the card takes full height */
+  flex-grow: 1; /* Allow the content area to expand and fill remaining space */
 }
 
 .product-image {
@@ -106,7 +107,7 @@
   text-decoration: none;
   font-weight: 600;
   transition: background-color 0.3s ease, transform 0.3s ease;
-  margin-top: auto; /* Push the button to the bottom of the card */
+  margin-top: 1rem; /* Space between price and button */
 }
 
 .buy-button:hover {
