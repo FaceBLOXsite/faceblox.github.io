@@ -1,88 +1,52 @@
-import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Star } from "lucide-react";
-import { motion } from "framer-motion";
-import Link from "next/link";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FaceBlox</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="title">FaceBlox</h1>
+      <div class="discord-link">
+        <a href="https://discord.gg/faceblox" target="_blank">
+          <img src="/images/discord-logo.webp" alt="Discord" class="discord-logo" />
+        </a>
+      </div>
+    </header>
 
-export default function FaceBlox() {
-  const products = [
-    {
-      name: "fitto",
-      price: 149.99,
-      image: "/fitto.png",
-      description: "Rare 2008 unverified Roblox account. Username: 'fitto'. Secure it today!",
-      paypalLink: "https://www.paypal.me/tonyjeremiasjaatinen/149.99",
-      email: "tonyjeremiasjaatinen@gmail.com", // Email for proof with image of purchase
-    },
-    // Empty slots for manual entry
-    {}, {}, {}, {}, {},
-  ];
-
-  const handleEmailContact = (product) => {
-    const subject = `Proof of Purchase for ${product.name}`;
-    const body = `Hello,\n\nI have purchased the account '${product.name}' for ${product.price}. Here is the proof of purchase.\n\nBest regards,`;
-    window.location.href = `mailto:${product.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
-
-  return (
-    <div className="bg-gradient-to-b from-black to-gray-900 text-white min-h-screen px-6 py-10">
-      <header className="flex items-center justify-between mb-10">
-        <h1 className="text-4xl font-extrabold text-gradient bg-clip-text text-transparent">
-          FaceBlox
-        </h1>
-        <div className="flex gap-4">
-          <a href="https://discord.gg/faceblox" target="_blank" className="transition-transform transform hover:scale-105">
-            <img src="/images/discord-logo.webp" alt="Discord" className="w-10 h-10 rounded-full border-2 border-white" />
+    <main class="product-grid">
+      <div class="product-card">
+        <div class="card-content">
+          <img src="/fitto.webp" alt="fitto" class="product-image" />
+          <h2 class="product-name">fitto</h2>
+          <p class="product-description">Rare 2008 unverified Roblox account. Username: 'fitto'. Secure it today!</p>
+          <div class="rating">
+            <span class="star-icon">★</span>
+            <span class="star-icon">★</span>
+            <span class="star-icon">★</span>
+            <span class="star-icon">★</span>
+            <span class="star-icon">★</span>
+            <span class="rating-text">4.9/5</span>
+          </div>
+          <div class="price">$149.99</div>
+          <a href="https://www.paypal.me/tonyjeremiasjaatinen/149.99" target="_blank" class="buy-button">
+            Buy Now with PayPal
           </a>
+          <p class="contact-info">After purchase, please contact us at <strong>tonyjeremiasjaatinen@gmail.com</strong> with image proof of your purchase.</p>
         </div>
-      </header>
+      </div>
 
-      <main className="grid md:grid-cols-3 gap-8">
-        {products.map((product, index) =>
-          product.name ? (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Card className="bg-zinc-900 text-white rounded-2xl shadow-xl hover:scale-105 transition-transform">
-                <CardContent className="p-4">
-                  <img src={product.image} alt={product.name} className="rounded-xl mb-4 w-full h-60 object-cover shadow-md transform transition-transform hover:scale-105" />
-                  <h2 className="text-2xl font-semibold mb-1">{product.name}</h2>
-                  <p className="text-sm text-gray-400 mb-2">{product.description}</p>
-                  <div className="flex items-center gap-1 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} fill="gold" className="text-yellow-500" />
-                    ))}
-                    <span className="text-xs text-gray-400">4.9/5</span>
-                  </div>
-                  <div className="text-lg font-bold mb-3">${product.price}</div>
-                  <a
-                    href={product.paypalLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full text-center bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition-all transform hover:scale-105"
-                  >
-                    Buy Now with PayPal
-                  </a>
-                  <div className="mt-4 text-center text-gray-400 text-sm">
-                    <p>After purchase, please contact us at <strong>{product.email}</strong> with proof of your purchase.</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ) : (
-            <div key={index} className="h-96 border-2 border-dashed border-gray-700 rounded-2xl flex items-center justify-center text-gray-600 text-sm">
-              <p className="text-lg text-gray-500">Empty Slot</p>
-            </div>
-          )
-        )}
-      </main>
+      <div class="empty-slot">
+        <p>Empty Slot</p>
+      </div>
+    </main>
 
-      <footer className="mt-20 text-center text-gray-500 text-sm">
-        <p>&copy; 2025 FaceBlox. Not affiliated with Roblox Corporation.</p>
-      </footer>
-    </div>
-  );
-}
+    <footer class="footer">
+      <p>&copy; 2025 FaceBlox. Not affiliated with Roblox Corporation.</p>
+    </footer>
+  </div>
+</body>
+</html>
