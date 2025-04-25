@@ -1,25 +1,42 @@
-/* General Layout */
+/* styles.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  color: #f0f0f0;
+  line-height: 1.6;
+}
+
 .container {
-  background-color: black;
-  color: white;
-  min-height: 100vh;
-  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  align-items: center;
+  margin-bottom: 40px;
+  border-bottom: 2px solid #2a2a2a;
+  padding-bottom: 20px;
 }
 
 .title {
   font-size: 2.5rem;
-  font-weight: bold;
+  color: #f9f9f9;
+  letter-spacing: 1px;
 }
 
 .discord-link img {
-  width: 2rem;
-  height: 2rem;
+  width: 40px;
+  height: 40px;
   transition: transform 0.3s ease;
 }
 
@@ -29,113 +46,128 @@
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
 }
 
 .product-card {
-  background-color: #1a1a1a;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden; /* Ensure no content goes outside the card */
-  display: flex;
-  flex-direction: column; /* Ensure content is stacked vertically */
-  height: 100%; /* Ensure the card takes up full height */
 }
 
 .product-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
 }
 
 .card-content {
-  padding: 1rem;
-  flex-grow: 1; /* Allow the content area to expand and fill remaining space */
+  padding: 20px;
 }
 
 .product-image {
   width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
+  border-radius: 8px;
+  margin-bottom: 15px;
 }
 
 .product-name {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: #fefefe;
 }
 
 .product-description {
-  font-size: 0.9rem;
-  color: #888;
-  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: #ccc;
+  margin-bottom: 15px;
 }
 
 .rating {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
 }
 
 .star-icon {
   color: gold;
-  margin-right: 0.2rem;
+  margin-right: 3px;
 }
 
 .rating-text {
-  font-size: 0.9rem;
+  margin-left: 10px;
   color: #bbb;
+  font-size: 0.9rem;
 }
 
 .price {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  color: #00e676;
+  margin-bottom: 15px;
 }
 
+/* Animated Buy Button */
 .buy-button {
-  display: block;
-  width: 100%;
-  text-align: center;
-  background-color: #28a745;
+  display: inline-block;
+  background: linear-gradient(135deg, #00c853, #00e676);
   color: white;
-  padding: 0.8rem;
-  border-radius: 0.5rem;
+  padding: 12px 24px;
+  border-radius: 6px;
   text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  margin-top: 1rem; /* Space between price and button */
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.buy-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
 }
 
 .buy-button:hover {
-  background-color: #218838;
-  transform: scale(1.0);
+  background: linear-gradient(135deg, #00e676, #00c853);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 127, 0.5);
+}
+
+.buy-button:hover::after {
+  left: 130%;
 }
 
 .contact-info {
-  font-size: 0.875rem;
-  color: #bbb;
-  text-align: center;
-  margin-top: 1rem; /* Make sure contact info stays below the button */
+  margin-top: 15px;
+  font-size: 0.85rem;
+  color: #999;
 }
 
 .empty-slot {
-  height: 250px;
+  background-color: #2a2a2a;
   border: 2px dashed #555;
-  border-radius: 1rem;
+  border-radius: 10px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  color: #bbb;
-  font-size: 1.1rem;
+  align-items: center;
+  min-height: 200px;
+  color: #777;
+  font-size: 1rem;
 }
 
 .footer {
-  margin-top: 2rem;
   text-align: center;
-  font-size: 0.875rem;
+  margin-top: 50px;
+  padding: 20px;
+  border-top: 2px solid #2a2a2a;
+  font-size: 0.85rem;
   color: #777;
 }
