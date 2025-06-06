@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Noob Clicker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Noob Clicker</h1>
+  <div id="counter">0 Noobs</div>
+
+  <button id="clickButton">
+    <img id="clickImage" src="noob.png" alt="Click the Noob">
+  </button>
+
+  <audio id="oofSound" src="oof.mp3" preload="auto"></audio>
+
+  <footer>Click the noob to collect more noobs! Made with ❤️</footer>
+
+  <script>
+    let count = 0;
+    const counter = document.getElementById('counter');
+    const button = document.getElementById('clickButton');
+    const oof = document.getElementById('oofSound');
+
+    button.addEventListener('click', () => {
+      count++;
+      counter.textContent = `${count} Noob${count !== 1 ? 's' : ''}`;
+      oof.currentTime = 0; // rewind sound
+      oof.play();
+    });
+  </script>
+
+</body>
+</html>
