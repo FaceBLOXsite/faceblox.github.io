@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TEEHEET Merch Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>TEEHEET Merch</h1>
+    <p>funny man</p>
+  </header>
+
+  <main>
+    <div class="product-card">
+      <img src="images/teeheet-shirt.png" alt="TEEHEET Shirt">
+      <h2>Classic TEEHEET Shirt</h2>
+      <p class="price">$25.00</p>
+      <!-- PayPal Button -->
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com"> <!-- Replace with your PayPal email -->
+        <input type="hidden" name="item_name" value="TEEHEET Shirt">
+        <input type="hidden" name="amount" value="25.00">
+        <input type="hidden" name="currency_code" value="USD">
+        <button type="submit" class="paypal-btn">Buy Now with PayPal</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 TEEHEET. Stay silly.</p>
+  </footer>
+</body>
+</html>
