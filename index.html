@@ -1,36 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Noob Clicker</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Emmy — Click to Oof</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#7dd3fc}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{display:grid;place-items:center;background:linear-gradient(180deg,#071028 0%, #0b1220 100%);color:#e6eef8}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+          border-radius:14px;padding:28px;box-shadow:0 8px 24px rgba(2,6,23,0.6);width:320px;text-align:center}
+
+    h1{font-size:20px;margin:0 0 12px}
+    p{font-size:13px;margin:0 0 18px;color:#bcd4ea}
+
+    /* icon */
+    .icon-btn{display:inline-grid;place-items:center;width:120px;height:120px;border-radius:18px;background:linear-gradient(180deg,#0b1b2a,#06202c);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease;outline:none;border:2px solid rgba(125,211,252,0.06)}
+    .icon-btn:active{transform:scale(.98)}
+    .icon-btn:hover{box-shadow:0 6px 30px rgba(45,212,254,0.08);transform:translateY(-4px)}
+
+    .icon-btn img{width:76px;height:76px;display:block;pointer-events:none;user-select:none}
+
+    /* pulse when playing */
+    .playing{animation:beat 900ms ease-in-out infinite}
+    @keyframes beat{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+    .hint{margin-top:14px;font-size:12px;color:#9fbfe0}
+
+    /* focus for keyboard users */
+    .icon-btn:focus{box-shadow:0 8px 36px rgba(125,211,252,0.18);border-color:rgba(125,211,252,0.22)}
+  </style>
 </head>
 <body>
+  <main class="card" role="main">
+    <h1>Emmy — Click the icon</h1>
+    <p>Click (or press Enter/Space when focused) to play <strong>oof.mp3</strong>.</p>
 
-  <h1>Noob Clicker</h1>
-  <div id="counter">0 Noobs</div>
+    <!-- Replace emmy.png and oof.mp3 with your files in the same folder as this HTML file -->
+    <div id="emmyBtn" class="icon-btn" role="button" tabindex="0" aria-pressed="false" aria-label="Play oof sound">
+      <img id="emmyImg" src="emmy.png" alt="Emmy icon">
+    </div>
 
-  <button id="clickButton">
-    <img id="clickImage" src="noob.png" alt="Click the Noob">
-  </button>
+    <div class="hint">Tip: Put <code>emmy.png</code> and <code>oof.mp3</code> next to this file</div>
 
-  <audio id="oofSound" src="oof.mp3" preload="auto"></audio>
-
-  <footer>Click the noob to collect more noobs! Made with ❤️</footer>
+    <audio id="oofAudio" src="oof.mp3" preload="auto"></audio>
+  </main>
 
   <script>
-    let count = 0;
-    const counter = document.getElementById('counter');
-    const button = document.getElementById('clickButton');
-    const oof = document.getElementById('oofSound');
+    (function(){
+      const btn = document.getElementById('emmyBtn');
+      const img = document.getElementById('emmyImg');
+      const audio = document.getElementById('oofAudio');
 
-    button.addEventListener('click', () => {
-      count++;
-      counter.textContent = `${count} Noob${count !== 1 ? 's' : ''}`;
-      oof.currentTime = 0; // rewind sound
-      oof.play();
-    });
+      // play sound, reset to start so repeated clicks replay
+      function playOnce(){
+        try{
+          audio.currentTime = 0;
+        }catch(e){}
+        const play = audio.play();
+        if (play && play.catch) play.catch(()=>{/* autoplay blocked or file missing */});
+        btn.classList.add('playing');
+        btn.setAttribute('aria-pressed','true');
+      }
+
+      function stopVisual(){
+        btn.classList.remove('playing');
+        btn.setAttribute('aria-pressed','false');
+      }
+
+      btn.addEventListener('click', () => {
+        playOnce();
+      });
+
+      // keyboard accessibility (Enter / Space)
+      btn.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar'){
+          ev.preventDefault();
+          playOnce();
+        }
+      });
+
+      // when audio ends remove the playing state
+      audio.addEventListener('ended', stopVisual);
+      audio.addEventListener('pause', stopVisual);
+
+      // optional: show simple error if audio or image not found
+      audio.addEventListener('error', () => {
+        stopVisual();
+        console.warn('Failed to load oof.mp3 — make sure it is in the same folder and named exactly oof.mp3');
+      });
+      img.addEventListener('error', () => {
+        console.warn('Failed to load emmy.png — make sure it is in the same folder and named exactly emmy.png');
+      });
+    })();
   </script>
-
 </body>
 </html>
