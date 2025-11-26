@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Clicker</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 40px;
+        }
+        #clickBtn {
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+        #clickBtn img {
+            width: 200px; /* edit size if needed */
+        }
+        #count {
+            font-size: 32px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Simple Clicker</h1>
+
+    <button id="clickBtn">
+        <img src="greatest.png" alt="Click">
+    </button>
+
+    <div id="count">0</div>
+
+    <audio id="clickSound" src="satii.mp3"></audio>
+
+    <script>
+        let count = 0;
+        const counter = document.getElementById("count");
+        const sound = document.getElementById("clickSound");
+        const btn = document.getElementById("clickBtn");
+
+        btn.addEventListener("click", () => {
+            count++;
+            counter.textContent = count;
+
+            sound.currentTime = 0;  
+            sound.play();
+        });
+    </script>
+
+</body>
+</html>
