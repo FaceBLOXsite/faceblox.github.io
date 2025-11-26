@@ -1,24 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>SÄTII SIMULATOR</title>
+
     <style>
         body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
             text-align: center;
             font-family: Arial, sans-serif;
-            margin-top: 40px;
         }
+
         #clickBtn {
             border: none;
             background: none;
             cursor: pointer;
+            padding: 0;
         }
+
+        /* Bigger button image */
         #clickBtn img {
-            width: 200px; /* edit size if needed */
+            width: 300px;          /* increased size */
+            user-select: none;
+            transition: transform 0.1s ease;
         }
-        #count {
-            font-size: 32px;
+
+        /* Bounce effect */
+        #clickBtn img.bounce {
+            transform: scale(1.18);
+        }
+
+        #count, #cps {
+            font-size: 36px;
             margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #cps {
+            color: #555;
+            font-size: 26px;
         }
     </style>
 </head>
@@ -27,25 +52,49 @@
     <h1>SÄTII SIMULATOR</h1>
 
     <button id="clickBtn">
-        <img src="greatest.png" alt="Click">
+        <img id="clickImg" src="greatest.png" alt="Click">
     </button>
 
     <div id="count">0</div>
+    <div id="cps">CPS: 0</div>
 
     <audio id="clickSound" src="satii.mp3"></audio>
 
     <script>
-        let count = 0;
+        // Load saved score
+        let count = Number(localStorage.getItem("satiiScore")) || 0;
         const counter = document.getElementById("count");
+        counter.textContent = count;
+
+        const cpsDisplay = document.getElementById("cps");
+        let clicksThisSecond = 0;
+
         const sound = document.getElementById("clickSound");
         const btn = document.getElementById("clickBtn");
+        const img = document.getElementById("clickImg");
+
+        // CPS counter update every second
+        setInterval(() => {
+            cpsDisplay.textContent = "CPS: " + clicksThisSecond;
+            clicksThisSecond = 0;
+        }, 1000);
 
         btn.addEventListener("click", () => {
+            // score
             count++;
+            clicksThisSecond++;
             counter.textContent = count;
 
-            sound.currentTime = 0;  
-            sound.play();
+            // save score
+            localStorage.setItem("satiiScore", count);
+
+            // reset and play sound
+            sound.currentTime = 0;
+            sound.play().catch(() => {});
+
+            // bounce animation
+            img.classList.add("bounce");
+            setTimeout(() => img.classList.remove("bounce"), 120);
         });
     </script>
 
