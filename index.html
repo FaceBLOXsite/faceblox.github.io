@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>SÄTII SIMULATOR</title>
-
     <style>
         body {
             display: flex;
@@ -15,40 +14,47 @@
             text-align: center;
             font-family: Arial, sans-serif;
         }
-
         #clickBtn {
             border: none;
             background: none;
             cursor: pointer;
             padding: 0;
         }
-
-        /* Bigger button image */
         #clickBtn img {
-            width: 300px;          /* increased size */
+            width: 300px;
             user-select: none;
             transition: transform 0.1s ease;
         }
-
-        /* Bounce effect */
         #clickBtn img.bounce {
             transform: scale(1.18);
         }
-
         #count, #cps {
             font-size: 36px;
             margin-top: 20px;
             font-weight: bold;
         }
-
         #cps {
             color: #555;
             font-size: 26px;
         }
+        .shop {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .upgrade {
+            border: 2px solid black;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            width: 260px;
+            border-radius: 10px;
+            background: #eee;
+        }
     </style>
 </head>
 <body>
-
     <h1>SÄTII SIMULATOR</h1>
 
     <button id="clickBtn">
@@ -60,8 +66,12 @@
 
     <audio id="clickSound" src="satii.mp3"></audio>
 
+    <div class="shop">
+        <div class="upgrade" id="auto1">Buy Autoclicker (1 CPS) – Cost: <span id="costAuto1">50</span></div>
+        <div class="upgrade" id="factory">Buy SÄTII Factory (10 CPS) – Cost: <span id="costFactory">500</span></div>
+    </div>
+
     <script>
-        // Load saved score
         let count = Number(localStorage.getItem("satiiScore")) || 0;
         const counter = document.getElementById("count");
         counter.textContent = count;
@@ -73,30 +83,60 @@
         const btn = document.getElementById("clickBtn");
         const img = document.getElementById("clickImg");
 
-        // CPS counter update every second
+        // upgrades
+        let auto1 = Number(localStorage.getItem("auto1")) || 0;
+        let factory = Number(localStorage.getItem("factory")) || 0;
+
+        let costAuto1 = 50;
+        let costFactory = 500;
+
+        function updateCosts() {
+            document.getElementById("costAuto1").textContent = costAuto1;
+            document.getElementById("costFactory").textContent = costFactory;
+        }
+
+        updateCosts();
+
         setInterval(() => {
-            cpsDisplay.textContent = "CPS: " + clicksThisSecond;
-            clicksThisSecond = 0;
+            let cps = auto1 * 1 + factory * 10;
+            count += cps;
+            counter.textContent = count;
+            localStorage.setItem("satiiScore", count);
+            cpsDisplay.textContent = "CPS: " + cps;
         }, 1000);
 
         btn.addEventListener("click", () => {
-            // score
             count++;
             clicksThisSecond++;
             counter.textContent = count;
-
-            // save score
             localStorage.setItem("satiiScore", count);
-
-            // reset and play sound
             sound.currentTime = 0;
             sound.play().catch(() => {});
-
-            // bounce animation
             img.classList.add("bounce");
             setTimeout(() => img.classList.remove("bounce"), 120);
         });
-    </script>
 
+        document.getElementById("auto1").addEventListener("click", () => {
+            if (count >= costAuto1) {
+                count -= costAuto1;
+                auto1++;
+                costAuto1 = Math.floor(costAuto1 * 1.4);
+                localStorage.setItem("auto1", auto1);
+                localStorage.setItem("satiiScore", count);
+                updateCosts();
+            }
+        });
+
+        document.getElementById("factory").addEventListener("click", () => {
+            if (count >= costFactory) {
+                count -= costFactory;
+                factory++;
+                costFactory = Math.floor(costFactory * 1.5);
+                localStorage.setItem("factory", factory);
+                localStorage.setItem("satiiScore", count);
+                updateCosts();
+            }
+        });
+    </script>
 </body>
 </html>
