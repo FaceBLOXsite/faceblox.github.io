@@ -1,142 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>EMMY GYATT SIMULATOR</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        #clickBtn {
-            border: none;
-            background: none;
-            cursor: pointer;
-            padding: 0;
-        }
-        #clickBtn img {
-            width: 300px;
-            user-select: none;
-            transition: transform 0.1s ease;
-        }
-        #clickBtn img.bounce {
-            transform: scale(1.18);
-        }
-        #count, #cps {
-            font-size: 36px;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-        #cps {
-            color: #555;
-            font-size: 26px;
-        }
-        .shop {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .upgrade {
-            border: 2px solid black;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 20px;
-            width: 260px;
-            border-radius: 10px;
-            background: #eee;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Fullscreen Image</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain; /* use 'cover' if you want it cropped */
+    }
+  </style>
 </head>
 <body>
-    <h1>EMMY GYATTSIMULATOR</h1>
-
-    <button id="clickBtn">
-        <img id="clickImg" src="1362828134621384856.webp" alt="Click">
-    </button>
-
-    <div id="count">0</div>
-    <div id="cps">CPS: 0</div>
-
-    <audio id="clickSound" src="narration 5.mp3"></audio>
-
-    <div class="shop">
-        <div class="upgrade" id="auto1">Buy Autoclicker (1 CPS) – Cost: <span id="costAuto1">50</span></div>
-        <div class="upgrade" id="factory">Buy GYATT Factory (10 CPS) – Cost: <span id="costFactory">500</span></div>
-    </div>
-
-    <script>
-        let count = Number(localStorage.getItem("satiiScore")) || 0;
-        const counter = document.getElementById("count");
-        counter.textContent = count;
-
-        const cpsDisplay = document.getElementById("cps");
-        let clicksThisSecond = 0;
-
-        const sound = document.getElementById("clickSound");
-        const btn = document.getElementById("clickBtn");
-        const img = document.getElementById("clickImg");
-
-        // upgrades
-        let auto1 = Number(localStorage.getItem("auto1")) || 0;
-        let factory = Number(localStorage.getItem("factory")) || 0;
-
-        let costAuto1 = 50;
-        let costFactory = 500;
-
-        function updateCosts() {
-            document.getElementById("costAuto1").textContent = costAuto1;
-            document.getElementById("costFactory").textContent = costFactory;
-        }
-
-        updateCosts();
-
-        setInterval(() => {
-            let cps = auto1 * 1 + factory * 10;
-            count += cps;
-            counter.textContent = count;
-            localStorage.setItem("satiiScore", count);
-            cpsDisplay.textContent = "CPS: " + cps;
-        }, 1000);
-
-        btn.addEventListener("click", () => {
-            count++;
-            clicksThisSecond++;
-            counter.textContent = count;
-            localStorage.setItem("satiiScore", count);
-            sound.currentTime = 0;
-            sound.play().catch(() => {});
-            img.classList.add("bounce");
-            setTimeout(() => img.classList.remove("bounce"), 120);
-        });
-
-        document.getElementById("auto1").addEventListener("click", () => {
-            if (count >= costAuto1) {
-                count -= costAuto1;
-                auto1++;
-                costAuto1 = Math.floor(costAuto1 * 1.4);
-                localStorage.setItem("auto1", auto1);
-                localStorage.setItem("satiiScore", count);
-                updateCosts();
-            }
-        });
-
-        document.getElementById("factory").addEventListener("click", () => {
-            if (count >= costFactory) {
-                count -= costFactory;
-                factory++;
-                costFactory = Math.floor(costFactory * 1.5);
-                localStorage.setItem("factory", factory);
-                localStorage.setItem("satiiScore", count);
-                updateCosts();
-            }
-        });
-    </script>
+  <img src="IMG_1414.png" alt="Fullscreen PNG">
 </body>
 </html>
